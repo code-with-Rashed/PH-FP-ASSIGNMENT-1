@@ -48,3 +48,23 @@ function validateUsername(username) {
 
   return "Available";
 }
+
+// Question 4 solution
+function getCngFare(distance, isNight = false, waitingMinutes = 0){
+  const minFare = 50;
+  const perKmFare = 15; // every 1 km fare 15 taka after 2 km
+  const nightTransportCharge = .20; // add 20% in total cost
+  const waitingCharge = 2; // every 1 minute waiting charge 2 taka
+  let calculateCharge = minFare;
+  if(distance > 2){
+    const remainingDistance = distance - 2;
+    calculateCharge += remainingDistance * perKmFare;
+  }
+  if(waitingMinutes > 0){
+    calculateCharge += waitingCharge * waitingMinutes;
+  } 
+  if(isNight){
+    calculateCharge += calculateCharge * nightTransportCharge;
+  }
+  return calculateCharge;
+}
