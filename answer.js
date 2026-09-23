@@ -37,12 +37,12 @@ function validateUsername(username) {
   }
 
   // check username contain any space
-  if(username.includes(" ")){
-      return "No Space Allowed";
+  if (username.includes(" ")) {
+    return "No Space Allowed";
   }
 
   // check username contains (admin) reserved word
-  if(username.toLowerCase().includes("admin")){
+  if (username.toLowerCase().includes("admin")) {
     return "Reserved Word";
   }
 
@@ -50,21 +50,42 @@ function validateUsername(username) {
 }
 
 // Question 4 solution
-function getCngFare(distance, isNight = false, waitingMinutes = 0){
+function getCngFare(distance, isNight = false, waitingMinutes = 0) {
   const minFare = 50;
   const perKmFare = 15; // every 1 km fare 15 taka after 2 km
-  const nightTransportCharge = .20; // add 20% in total cost
+  const nightTransportCharge = 0.2; // add 20% in total cost
   const waitingCharge = 2; // every 1 minute waiting charge 2 taka
   let calculateCharge = minFare;
-  if(distance > 2){
+  if (distance > 2) {
     const remainingDistance = distance - 2;
     calculateCharge += remainingDistance * perKmFare;
   }
-  if(waitingMinutes > 0){
+  if (waitingMinutes > 0) {
     calculateCharge += waitingCharge * waitingMinutes;
-  } 
-  if(isNight){
+  }
+  if (isNight) {
     calculateCharge += calculateCharge * nightTransportCharge;
   }
   return calculateCharge;
 }
+
+// Question 5 solution
+const getChaseVerdict = (target, scored, ballsLeft) => {
+  const runsNeeded = target - scored;
+  if (runsNeeded <= 0) {
+    return "Won";
+  }
+  if (ballsLeft <= 0) {
+    return "Lost";
+  }
+  let verdict = "";
+  const requiredRate = (runsNeeded / ballsLeft) * 6;
+  if (requiredRate <= 6) {
+    verdict = "Comfortable";
+  } else if (requiredRate > 6 && requiredRate <= 12) {
+    verdict = "Tough";
+  } else if (requiredRate > 12) {
+    verdict = "Almost Impossible";
+  }
+  return `Need ${runsNeeded} runs in ${ballsLeft} balls | ${verdict}`;
+};
